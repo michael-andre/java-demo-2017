@@ -1,35 +1,49 @@
 package fr.ecp.sio;
 
-import fr.ecp.sio.model.Circle;
-import fr.ecp.sio.model.Paintable;
-import fr.ecp.sio.model.Point;
-import fr.ecp.sio.model.Rectangle;
-import fr.ecp.sio.model.Shape;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import fr.ecp.sio.gson.RectangleAdapter;
+import fr.ecp.sio.model.*;
 import fr.ecp.sio.ui.DrawingCanvas;
-import org.w3c.dom.css.Rect;
-import sun.security.provider.SHA;
 
 import javax.swing.*;
-import java.awt.*;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Demos {
 
     public static void main(String[] args) {
 
+        String content = null;
+        try {
+            //String content = getUrlContent("https://pastebin.com/raw/HVJYaLPP");
+            content = getUrlContent("https://pastebin.com/raw/BWWS9Xkm");
+            System.out.println(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Rectangle.class, new RectangleAdapter())
+                .create();
+        Rectangle rect1 = gson.fromJson(content, Rectangle.class);*/
+
+
         // Define some shapes
-        Rectangle rect1 = new Rectangle(50, 60, 400, 300);
+        /*Rectangle rect1 = new Rectangle(50, 60, 400, 300);
         Circle circle1 = new Circle(100, 100, 100);
-        //circle1.setY(100);
-        //circle1.getOrigin().setY(200);
-        circle1.getCenter().setY(300);
+        Polygon poly1 = new Polygon(
+                new Point(300, 400),
+                new Point(500, 300),
+                new Point(200, 700)
+        );*/
 
         DrawingCanvas panel = new DrawingCanvas();
         panel.shapes = new ArrayList<Paintable>();
-        panel.shapes.add(rect1);
-        panel.shapes.add(circle1);
+        //panel.shapes.add(rect1);
+        /*panel.shapes.add(circle1);
+        panel.shapes.add(poly1);*/
 
         // UI classes are provided in the javax.swing.* package.
         // We create a window, give it a size, add the panel (the default is fullscreen) and display it.
@@ -129,6 +143,22 @@ public class Demos {
         d.draw();
         */
 
+    }
+
+    public static String getUrlContent(String url) throws IOException {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(
+                        new URL(url).openConnection().getInputStream()
+                )
+        )) {
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+            reader.close();
+            return sb.toString();
+        }
     }
 
 }
