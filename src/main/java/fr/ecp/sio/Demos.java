@@ -2,6 +2,7 @@ package fr.ecp.sio;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import fr.ecp.sio.gson.ShapeAdapter;
 import fr.ecp.sio.model.*;
 import fr.ecp.sio.ui.DrawingCanvas;
@@ -10,6 +11,7 @@ import javax.swing.*;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Demos {
 
@@ -17,8 +19,8 @@ public class Demos {
 
         String content = null;
         try {
-            //String content = getUrlContent("https://pastebin.com/raw/HVJYaLPP");
-            content = getUrlContent("https://pastebin.com/raw/BWWS9Xkm");
+            content = getUrlContent("https://pastebin.com/raw/HVJYaLPP");
+            //content = getUrlContent("https://pastebin.com/raw/BWWS9Xkm");
             System.out.println(content);
         } catch (IOException e) {
             e.printStackTrace();
@@ -27,7 +29,10 @@ public class Demos {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Shape.class, new ShapeAdapter())
                 .create();
-        Shape shape = gson.fromJson(content, Shape.class);
+        List<Shape> shapes = gson.fromJson(
+                content,
+                new TypeToken<List<Shape>>() {}.getType()
+        );
 
 
         // Define some shapes
@@ -41,7 +46,7 @@ public class Demos {
 
         DrawingCanvas panel = new DrawingCanvas();
         panel.shapes = new ArrayList<Paintable>();
-        panel.shapes.add(shape);
+        panel.shapes.addAll(shapes);
         /*panel.shapes.add(circle1);
         panel.shapes.add(poly1);*/
 

@@ -15,23 +15,16 @@ public class ShapeAdapter implements JsonDeserializer<Shape> {
 
         JsonObject obj = e.getAsJsonObject();
         String type = obj.get("type").getAsString();
-        Type subClass = null;
-        switch (type) {
-            case "Rectangle":
-                subClass = Rectangle.class;
-                break;
-            case "Circle":
-                subClass = Circle.class;
-                break;
+        Shape shape = null;
+        try {
+            Type subClass = Class.forName(Shape.class.getPackage().getName() + "." + type);
+            shape = context.deserialize(e, subClass);
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
         }
-        Shape shape = context.deserialize(e, subClass);
 
-        shape.setOrigin(
-                new Point(
-                        obj.get("x").getAsInt(),
-                        obj.get("y").getAsInt()
-                )
-        );
+        Point origin = context.deserialize(e, Point.class);
+        shape.setOrigin(origin);
 
         return shape;
     }
