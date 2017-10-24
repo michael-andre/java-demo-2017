@@ -1,7 +1,6 @@
 package fr.ecp.sio.ui;
 
 import fr.ecp.sio.model.Paintable;
-import fr.ecp.sio.model.Shape;
 import java.awt.*;
 import java.util.List;
 

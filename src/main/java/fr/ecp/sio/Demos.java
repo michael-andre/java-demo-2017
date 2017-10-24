@@ -2,6 +2,7 @@ package fr.ecp.sio;
 
 import fr.ecp.sio.model.Circle;
 import fr.ecp.sio.model.Paintable;
+import fr.ecp.sio.model.Point;
 import fr.ecp.sio.model.Rectangle;
 import fr.ecp.sio.model.Shape;
 import fr.ecp.sio.ui.DrawingCanvas;
@@ -19,16 +20,11 @@ public class Demos {
     public static void main(String[] args) {
 
         // Define some shapes
-        Rectangle rect1 = new Rectangle();
-        rect1.x = 50;
-        rect1.y = 60;
-        rect1.width = Rectangle.BIG_WIDTH;
-        rect1.height = 300;
-
-        Circle circle1 = new Circle();
-        circle1.x = 80;
-        circle1.y = 120;
-        circle1.radius = 50;
+        Rectangle rect1 = new Rectangle(50, 60, 400, 300);
+        Circle circle1 = new Circle(100, 100, 100);
+        //circle1.setY(100);
+        //circle1.getOrigin().setY(200);
+        circle1.getCenter().setY(300);
 
         DrawingCanvas panel = new DrawingCanvas();
         panel.shapes = new ArrayList<Paintable>();
