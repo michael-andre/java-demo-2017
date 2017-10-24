@@ -2,7 +2,7 @@ package fr.ecp.sio;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import fr.ecp.sio.gson.RectangleAdapter;
+import fr.ecp.sio.gson.ShapeAdapter;
 import fr.ecp.sio.model.*;
 import fr.ecp.sio.ui.DrawingCanvas;
 
@@ -24,10 +24,10 @@ public class Demos {
             e.printStackTrace();
         }
 
-        /*Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Rectangle.class, new RectangleAdapter())
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Shape.class, new ShapeAdapter())
                 .create();
-        Rectangle rect1 = gson.fromJson(content, Rectangle.class);*/
+        Shape shape = gson.fromJson(content, Shape.class);
 
 
         // Define some shapes
@@ -41,7 +41,7 @@ public class Demos {
 
         DrawingCanvas panel = new DrawingCanvas();
         panel.shapes = new ArrayList<Paintable>();
-        //panel.shapes.add(rect1);
+        panel.shapes.add(shape);
         /*panel.shapes.add(circle1);
         panel.shapes.add(poly1);*/
 
