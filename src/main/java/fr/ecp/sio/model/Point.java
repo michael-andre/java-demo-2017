@@ -1,5 +1,8 @@
 package fr.ecp.sio.model;
 
+/**
+ * A simple point class to hold x and y values.
+ */
 public class Point {
 
     private int x, y;
